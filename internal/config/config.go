@@ -49,7 +49,7 @@ type LocalProxyConfig struct {
 }
 
 type TestSettings struct {
-	ExpectedIP     string   `json:"expected_ip,omitempty"`
+	ExpectedIP     string   `json:"expected_ip"`
 	IPCheckURLs    []string `json:"ip_check_urls,omitempty"`
 	Targets        []string `json:"targets,omitempty"`
 	CheckProxyPort bool     `json:"check_proxy_port,omitempty"`
@@ -217,7 +217,7 @@ func Default() Config {
 				"https://ping0.cc",
 			},
 			Targets: []string{
-				"https://claude.ai/",
+				"https://www.anthropic.com/",
 				"https://api.anthropic.com/",
 			},
 			CheckProxyPort: true,

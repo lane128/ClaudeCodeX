@@ -87,13 +87,13 @@ ccx language      # 交互式选择；也可用 --zh 或 --en 直接设置
 
 `ccx test` 当前支持：
 
-- 测试代理访问目标地址是否可用
+- 测试代理访问目标地址是否可用（默认：`https://www.anthropic.com/`）
 - 按 `--proxy > 环境变量 > active profile` 的优先级解析代理
 - 结果只有成功（绿色）和失败（红色）两态，终端下自动着色
 - 未配置代理时自动切换为直连模式（适用于全局 VPN 或 TUN 模式）
 - 检查代理 host:port 是否可达
-- 通过多个 IP 测试地址检查出口 IP
-- 使用 `--expect-ip` 校验出口 IP，也可在 settings.json 中配置 `expected_ip` 自动比对
+- 通过多个 IP 检测地址获取出口 IP
+- 将出口 IP 与 settings.json 中的 `expected_ip` 对比（手动填写后生效）
 
 `ccx language` 当前支持：
 

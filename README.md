@@ -89,13 +89,13 @@ The current command surface is intentionally compact:
 
 `ccx test` currently supports:
 
-- validating proxy reachability against a target URL
+- validating proxy reachability against a target URL (default: `https://www.anthropic.com/`)
 - reading the proxy from `--proxy`, environment variables, or the active saved profile
 - two-state result: success (green) or failed (red), with color output in interactive terminals
 - falling back to direct connection when no proxy is configured (useful for global VPN or TUN mode)
 - checking whether the proxy host:port is reachable
-- checking exit IP through multiple IP test URLs
-- verifying the exit IP with `--expect-ip`, or automatically using `expected_ip` from settings.json
+- checking exit IP through multiple IP check URLs
+- verifying the exit IP matches `expected_ip` in settings.json (set it manually to enable the check)
 
 `ccx language` currently supports:
 
