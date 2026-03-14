@@ -73,7 +73,7 @@ Provide a reliable first-step diagnostic command so users can identify whether C
 
 ## Open Design Questions
 
-- which Claude Code related endpoints should be included by default
+- whether default endpoints should stay on neutral public targets like Google or become provider-specific later
 - whether to support parallel probes in V1
 - whether degraded should map to exit code `1` and failed to `2`
 
