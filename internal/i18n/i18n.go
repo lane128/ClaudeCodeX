@@ -100,6 +100,7 @@ var catalog = map[string]map[string]string{
 		"proxy_port_failed":           "proxy port is not reachable: %s",
 		"proxy_exit_ip_mismatch":      "exit IP did not match the expected value %s",
 		"proxy_test_success":          "proxy connectivity and exit IP checks passed",
+		"proxy_expected_ip_not_set":   "expected_ip is not set in settings.json; configure it to enable exit IP verification",
 		"doctor_checking":             "checking %s (%s)...",
 	},
 	Chinese: {
@@ -191,6 +192,7 @@ var catalog = map[string]map[string]string{
 		"proxy_port_failed":           "代理端口不可达：%s",
 		"proxy_exit_ip_mismatch":      "出口 IP 未匹配期望值 %s",
 		"proxy_test_success":          "代理连通性和出口 IP 检查通过",
+		"proxy_expected_ip_not_set":   "settings.json 中未配置 expected_ip，请填写后再运行以启用出口 IP 校验",
 		"doctor_checking":             "正在检测 %s (%s)...",
 	},
 }

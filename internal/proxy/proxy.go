@@ -179,7 +179,13 @@ func Test(opts TestOptions) TestResult {
 		return result
 	}
 
-	if result.ExpectedIP != "" && !result.ExitIPMatched {
+	if result.ExpectedIP == "" {
+		result.Status = "failed"
+		result.Message = i18n.Text(opts.Language, "proxy_expected_ip_not_set")
+		return result
+	}
+
+	if !result.ExitIPMatched {
 		result.Status = "failed"
 		result.Message = i18n.Text(opts.Language, "proxy_exit_ip_mismatch", result.ExpectedIP)
 		return result
