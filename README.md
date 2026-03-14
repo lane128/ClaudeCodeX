@@ -28,16 +28,35 @@ The settings file now includes a `local_vpn` block for user-managed local proxy 
 4. Environment profiles and one-command switching
 5. Health checks and guided fixes
 
-## Quick Start
+## Installation
+
+### macOS / Linux
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/lane128/ClaudeCodeX/main/install.sh | bash
+```
+
+### Windows
+
+```powershell
+irm https://raw.githubusercontent.com/lane128/ClaudeCodeX/main/install.ps1 | iex
+```
+
+### Build from source
 
 ```bash
 go build -o ./bin/ccx ./cmd/ccx
-./bin/ccx doctor
-./bin/ccx env
-./bin/ccx test --proxy http://127.0.0.1:7890
-./bin/ccx test                  # compares exit IP against expected_ip in settings.json
-./bin/ccx setting
-./bin/ccx language              # interactive picker; use --zh or --en to skip
+```
+
+## Quick Start
+
+```bash
+ccx doctor
+ccx env
+ccx test --proxy http://127.0.0.1:7890
+ccx test          # compares exit IP against expected_ip in settings.json
+ccx setting
+ccx language      # interactive picker; use --zh or --en to skip
 ```
 
 ## Current Status
