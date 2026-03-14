@@ -6,15 +6,9 @@ $Binary = "ccx"
 # --- detect arch ---
 $Arch = if ($env:PROCESSOR_ARCHITECTURE -eq "ARM64") { "arm64" } else { "amd64" }
 
-# --- fetch latest version ---
-Write-Host "Fetching latest version..."
-$Release = Invoke-RestMethod "https://api.github.com/repos/$Repo/releases/latest"
-$Version = $Release.tag_name
-
-Write-Host "Downloading $Binary $Version (windows/$Arch)..."
-
 # --- download ---
-$Url        = "https://github.com/$Repo/releases/download/$Version/${Binary}_windows_${Arch}.exe"
+Write-Host "Downloading $Binary (windows/$Arch)..."
+$Url = "https://github.com/$Repo/releases/latest/download/${Binary}_windows_${Arch}.exe"
 $InstallDir = "$env:USERPROFILE\.local\bin"
 New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
 $InstallPath = "$InstallDir\$Binary.exe"

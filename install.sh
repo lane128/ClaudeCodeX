@@ -19,18 +19,11 @@ case "$ARCH" in
   *) echo "error: unsupported arch: $ARCH" >&2; exit 1 ;;
 esac
 
-# --- fetch latest version ---
-echo "Fetching latest version..."
-VERSION=$(curl -fsSL "https://api.github.com/repos/$REPO/releases/latest" \
-  | grep '"tag_name"' | sed 's/.*"tag_name": *"\([^"]*\)".*/\1/')
-[ -n "$VERSION" ] || { echo "error: could not determine latest version" >&2; exit 1; }
-
-echo "Downloading $BINARY $VERSION ($OS/$ARCH)..."
-
 # --- download to temp file ---
+echo "Downloading $BINARY ($OS/$ARCH)..."
 TMP=$(mktemp)
 trap 'rm -f "$TMP"' EXIT
-curl -fsSL "https://github.com/$REPO/releases/download/$VERSION/${BINARY}_${OS}_${ARCH}" -o "$TMP"
+curl -fsSL "https://github.com/$REPO/releases/latest/download/${BINARY}_${OS}_${ARCH}" -o "$TMP"
 chmod +x "$TMP"
 
 # --- install: /usr/local/bin with sudo fallback to ~/.local/bin ---
