@@ -32,6 +32,36 @@ _install_to() {
   cp "$TMP" "${dest}.tmp" && chmod +x "${dest}.tmp" && mv "${dest}.tmp" "$dest"
 }
 
+_add_to_path() {
+  local dir="$1"
+  local export_line="export PATH=\"${dir}:\$PATH\""
+
+  # Already in current PATH — nothing to do
+  if [[ ":$PATH:" == *":${dir}:"* ]]; then
+    return
+  fi
+
+  # Detect shell profile
+  local profile=""
+  case "${SHELL##*/}" in
+    zsh)  profile="$HOME/.zshrc" ;;
+    bash) profile="${BASH_PROFILE:-$HOME/.bashrc}"
+          [ -f "$HOME/.bash_profile" ] && profile="$HOME/.bash_profile" ;;
+    fish) profile="$HOME/.config/fish/config.fish"
+          export_line="fish_add_path ${dir}" ;;
+    *)    profile="$HOME/.profile" ;;
+  esac
+
+  # Avoid duplicate entries
+  if [ -f "$profile" ] && grep -qF "$dir" "$profile" 2>/dev/null; then
+    return
+  fi
+
+  printf '\n# Added by ccx installer\n%s\n' "$export_line" >> "$profile"
+  echo "PATH updated: $profile"
+  echo "Run 'source $profile' or open a new terminal to use ccx."
+}
+
 INSTALL_PATH=""
 if [ -w "/usr/local/bin" ]; then
   if _install_to "/usr/local/bin/$BINARY"; then
@@ -48,13 +78,7 @@ if [ -z "$INSTALL_PATH" ]; then
     mkdir -p "$USER_DIR" 2>/dev/null || continue
     if _install_to "$USER_DIR/$BINARY"; then
       INSTALL_PATH="$USER_DIR/$BINARY"
-      if [[ ":$PATH:" != *":$USER_DIR:"* ]]; then
-        echo ""
-        echo "Note: $USER_DIR is not in your PATH."
-        echo "Add the following line to your shell profile (~/.zshrc or ~/.bashrc):"
-        printf "  export PATH=\"%s:\$PATH\"\n" "$USER_DIR"
-        echo ""
-      fi
+      _add_to_path "$USER_DIR"
       break
     fi
   done
